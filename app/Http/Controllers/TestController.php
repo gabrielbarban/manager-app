@@ -24,4 +24,9 @@ class TestController extends Controller
             return redirect()->back()->withErrors([$message]);
         }
     }
+
+    public function testSystem()
+    {
+        return view('templatemo-js.index');
+    }
 }

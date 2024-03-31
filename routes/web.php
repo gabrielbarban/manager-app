@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('/test-database-connection', 'App\Http\Controllers\TestController@testDatabaseConnection');
+Route::get('/system', 'App\Http\Controllers\TestController@testSystem');
