@@ -30,6 +30,9 @@ class AuthController extends Controller
         } else{
             session()->put('message', null);
             session()->put('logged', 1);
+            session()->put('id_usuario', $response->id);
+            session()->put('nome_usuario', $response->nome);
+            session()->put('email_usuario', $response->email);
             return redirect('/painel');
         }
     }
@@ -38,6 +41,9 @@ class AuthController extends Controller
     {
         session()->put('message', null);
         session()->put('logged', 0);
+        session()->put('id_usuario', null);
+        session()->put('nome_usuario', null);
+        session()->put('email_usuario', null);
         return redirect('/login');
     }
 }

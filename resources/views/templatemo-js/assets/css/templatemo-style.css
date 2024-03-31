@@ -1095,7 +1095,7 @@ section.buttons .container-fluid {
 
 @media screen and (max-width: 845px) {
     #header .logo a {
-        margin-right: 30px!important;
+        margin-right: 20px!important;
     }
 	#main > .inner {
 	    padding: 15px;
@@ -1220,7 +1220,7 @@ section.buttons .container-fluid {
 	letter-spacing: 1px;
 	color: #fff;
 	font-weight: 700;
-	margin-right: 100px;
+	margin-right: 70px;
 }
 
 

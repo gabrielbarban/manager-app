@@ -18,9 +18,15 @@ Route::get('/', function () {
 });
 
 Route::get('/test-database-connection', 'App\Http\Controllers\TestController@testDatabaseConnection');
+
+
 Route::get('/login', 'App\Http\Controllers\AuthController@index');
 Route::get('/logout', 'App\Http\Controllers\AuthController@logout');
 Route::post('/authentication', 'App\Http\Controllers\AuthController@login');
 Route::get('/painel', 'App\Http\Controllers\PainelController@index');
 Route::get('/receitas', 'App\Http\Controllers\ReceitasController@index');
 Route::get('/despesas', 'App\Http\Controllers\DespesasController@index');
+
+Route::get('/usuarios', 'App\Http\Controllers\UsuarioController@index');
+Route::get('/usuario/novo', 'App\Http\Controllers\UsuarioController@novo');
+Route::post('/usuario/save', 'App\Http\Controllers\UsuarioController@save');
