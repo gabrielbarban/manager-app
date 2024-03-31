@@ -16,17 +16,35 @@ class UsuarioController extends Controller
 
     public function index()
     {
+        $logged = \Illuminate\Support\Facades\Session::get('logged');
+        if(empty($logged) || $logged == 0 || $logged == '0'){
+            session()->put('message', 'Usuário/senha expirado');
+            return redirect('/login');
+        }
+
         $usuarios = $this->usuarioService->listUsuarios();
         return view('templatemo-js.usuarios')->with('usuarios', $usuarios);
     }
 
     public function novo()
     {
+        $logged = \Illuminate\Support\Facades\Session::get('logged');
+        if(empty($logged) || $logged == 0 || $logged == '0'){
+            session()->put('message', 'Usuário/senha expirado');
+            return redirect('/login');
+        }
+
         return view('templatemo-js.novo-usuario');
     }
 
     public function save(Request $request)
     {
+        $logged = \Illuminate\Support\Facades\Session::get('logged');
+        if(empty($logged) || $logged == 0 || $logged == '0'){
+            session()->put('message', 'Usuário/senha expirado');
+            return redirect('/login');
+        }
+
         if((isset($request->id) && !empty($request->id)) && ($request->senha !== $request->senha2)){
             return redirect('/usuario'.'/'.$request->id)->with('error', 'As senhas informadas não são iguais.');
         } elseif((!isset($request->id)) && ($request->senha !== $request->senha2)){
@@ -46,6 +64,12 @@ class UsuarioController extends Controller
 
     public function get($id)
     {
+        $logged = \Illuminate\Support\Facades\Session::get('logged');
+        if(empty($logged) || $logged == 0 || $logged == '0'){
+            session()->put('message', 'Usuário/senha expirado');
+            return redirect('/login');
+        }
+
         $usuario = $this->usuarioService->get($id);
         return view('templatemo-js.edit-usuario')->with('usuario', $usuario);
     }
