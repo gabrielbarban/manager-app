@@ -8,9 +8,7 @@
   </head>
 
 <body class="is-preload">
-
     <div id="wrapper">
-
         <div id="main">
           <div class="inner">
 
@@ -22,16 +20,8 @@
 
           </div>
         </div>
-
-      <!-- Sidebar -->
         @include('templatemo-js.partials.sidebar')
-
     </div>
-
     @include('templatemo-js.partials.footer')
 </body>
-
-
-  </body>
-
 </html>

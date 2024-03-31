@@ -4,9 +4,18 @@
     <!-- Menu -->
     <nav id="menu">
         <ul>
-        <li><a href="/painel">Painel</a></li>
-        <li><a href="/receitas">Receitas</a></li>
-        <li><a href="/despesas">Despesas</a></li>
+        <li><a href="/painel"><i class="fa fa-tachometer" aria-hidden="true"></i> Painel</a></li>
+        <li><a href="/receitas"><i class="fa fa-plus" aria-hidden="true"></i> Receitas</a></li>
+        <li><a href="/despesas"><i class="fa fa-minus" aria-hidden="true"></i> Despesas</a></li>
+        <li>
+            <span class="opener"><i class="fa fa-cogs" aria-hidden="true"></i> Configurações</span>
+            <ul>
+                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Usuários</a></li>
+                <li><a href="#"><i class="fa fa-university" aria-hidden="true"></i> Empresas</a></li>
+                <li><a href="#"><i class="fa fa-tag" aria-hidden="true"></i> Categorias</a></li>
+            </ul>
+        </li>
+        <li><a href="/logout"><i class="fa fa-sign-out"></i> Sair</a></li>
         <!--
             <li>
                 <span class="opener">Dropdown One</span>
