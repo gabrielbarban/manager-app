@@ -22,4 +22,9 @@ class UsuarioService
     {
         return $this->usuarioRepository->save($data);
     }
+
+    public function get($id)
+    {
+        return $this->usuarioRepository->get($id);
+    }
 }

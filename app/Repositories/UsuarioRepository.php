@@ -14,12 +14,23 @@ class UsuarioRepository
 
     public function save($data)
     {
-        $usuario = new Usuario();
+        if(isset($data->id) && !empty($data->id)){
+            $usuario = Usuario::where("id", $data->id)->first();
+        } else{
+            $usuario = new Usuario();
+        }
+
         $usuario->email = $data->email;
         $usuario->senha = md5($data->senha);
         $usuario->nome = $data->nome;
         $usuario->save();
         
+        return $usuario;
+    }
+
+    public function get($id)
+    {
+        $usuario = Usuario::where("id", $id)->first();
         return $usuario;
     }
 }

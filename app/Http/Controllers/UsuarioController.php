@@ -27,12 +27,26 @@ class UsuarioController extends Controller
 
     public function save(Request $request)
     {
-        if($request->senha !== $request->senha2){
-            return view('templatemo-js.novo-usuario');
+        if((isset($request->id) && !empty($request->id)) && ($request->senha !== $request->senha2)){
+            return redirect('/usuario'.'/'.$request->id)->with('error', 'As senhas informadas não são iguais.');
+        } elseif((!isset($request->id)) && ($request->senha !== $request->senha2)){
+            return redirect('/usuario/novo')->with('error', 'As senhas informadas não são iguais.');
         }
 
         $usuario = $this->usuarioService->save($request);
-        return redirect('/usuarios')->with('success', 'Usuário salvo com sucesso!')
-            ->with('usuario', $usuario);
+
+        if((isset($request->id) && !empty($request->id))){
+             return redirect('/usuarios')->with('success', 'Usuário atualizado com sucesso!')
+                ->with('usuario', $usuario);
+        } else{
+            return redirect('/usuarios')->with('success', 'Usuário salvo com sucesso!')
+                ->with('usuario', $usuario);
+        }
+    }
+
+    public function get($id)
+    {
+        $usuario = $this->usuarioService->get($id);
+        return view('templatemo-js.edit-usuario')->with('usuario', $usuario);
     }
 }

@@ -29,31 +29,32 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title text-center mb-4">Novo usuário</h3>
+                        <h3 class="card-title text-center mb-4">Editar usuário</h3>
                         <form action="/usuario/save" method="POST">
                             @csrf
 
+                            <input type="hidden" id="id" name="id" value="{{ $usuario->id }}">
                             <div class="form-group">
                                 <label for="nome">Nome:</label>
-                                <input type="text" class="form-control" id="nome" name="nome" required>
+                                <input type="text" class="form-control" id="nome" name="nome" value="{{ $usuario->nome }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ $usuario->email }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="password">Senha:</label>
-                                <input type="password" class="form-control" id="senha" name="senha" required>
+                                <input type="password" class="form-control" id="senha" name="senha" value="{{ $usuario->senha }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="password">Senha novamente:</label>
-                                <input type="password" class="form-control" id="senha2" name="senha2" required>
+                                <input type="password" class="form-control" id="senha2" name="senha2" value="{{ $usuario->senha }}" required>
                             </div>
 
-                            <button type="submit" class="btn btn-primary ">Cadastrar <i class="fa fa-check" aria-hidden="true"></i></button>
+                            <button type="submit" class="btn btn-primary ">Atualizar <i class="fa fa-check" aria-hidden="true"></i></button>
                         </form>
                     </div>
                 </div>

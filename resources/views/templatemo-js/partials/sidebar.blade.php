@@ -20,8 +20,8 @@
                 <span class="opener"><i class="fa fa-cogs" aria-hidden="true"></i> Configurações</span>
                 <ul>
                     <li><a href="/usuarios"><i class="fa fa-user" aria-hidden="true"></i> Usuários</a></li>
-                    <li><a href="#"><i class="fa fa-university" aria-hidden="true"></i> Empresas</a></li>
-                    <li><a href="#"><i class="fa fa-tag" aria-hidden="true"></i> Categorias</a></li>
+                    <li><a href="/empresas"><i class="fa fa-university" aria-hidden="true"></i> Empresas</a></li>
+                    <li><a href="/categorias"><i class="fa fa-tag" aria-hidden="true"></i> Categorias</a></li>
                 </ul>
             </li>
             <li><a href="/logout"><i class="fa fa-sign-out"></i> Sair</a></li>

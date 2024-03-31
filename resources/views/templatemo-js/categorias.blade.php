@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Usuários | Manager</title>
+    <title>Categorias | Manager</title>
   </head>
 
 <body class="is-preload">
@@ -13,7 +13,7 @@
           <div class="inner">
             @include('templatemo-js.partials.header')
             <div class="mb-3 d-flex justify-content-end">
-                <a href="/usuario/novo" class="btn btn-primary">Adicionar Novo Usuário <i class="fa fa-user" aria-hidden="true"></i></a>
+                <a href="/categoria/novo" class="btn btn-primary">Adicionar Nova Categoria <i class="fa fa-tag" aria-hidden="true"></i></a>
             </div>
             @if(session('success'))
                 <div id="success-alert" class="alert alert-success">
@@ -31,17 +31,15 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>Email</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($usuarios as $usuario)
+                            @foreach($categorias as $categoria)
                                 <tr>
-                                    <td>{{ $usuario->nome }}</td>
-                                    <td>{{ $usuario->email }}</td>
+                                    <td>{{ $categoria->nome }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary editar-usuario" data-id="{{ $usuario->id }}">
+                                        <button type="button" class="btn btn-primary editar-categoria" data-id="{{ $categoria->id }}">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
                                         </button>
                                         <button type="button" class="btn btn-danger">
@@ -62,10 +60,10 @@
 </body>
 
 <script>
-    document.querySelectorAll('.editar-usuario').forEach(btn => {
+    document.querySelectorAll('.editar-categoria').forEach(btn => {
         btn.addEventListener('click', function() {
             const userId = this.getAttribute('data-id');
-            window.location.href = `/usuario/${userId}`;
+            window.location.href = `/categoria/${userId}`;
         });
     });
 </script>

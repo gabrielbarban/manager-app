@@ -13,7 +13,7 @@
           <div class="inner">
             @include('templatemo-js.partials.header')
             <div class="mb-3 d-flex">
-                <a href="/usuarios" class="btn btn-primary"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a>
+                <a href="/categorias" class="btn btn-primary"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a>
             </div>
             <section class="main-banner">
                 @if(session('error'))
@@ -29,31 +29,17 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title text-center mb-4">Novo usuário</h3>
-                        <form action="/usuario/save" method="POST">
+                        <h3 class="card-title text-center mb-4">Editar Categoria</h3>
+                        <form action="/categoria/save" method="POST">
                             @csrf
 
+                            <input type="hidden" id="id" name="id" value="{{ $categoria->id }}">
                             <div class="form-group">
                                 <label for="nome">Nome:</label>
-                                <input type="text" class="form-control" id="nome" name="nome" required>
+                                <input type="text" class="form-control" id="nome" name="nome" value="{{ $categoria->nome }}" required>
                             </div>
 
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password">Senha:</label>
-                                <input type="password" class="form-control" id="senha" name="senha" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password">Senha novamente:</label>
-                                <input type="password" class="form-control" id="senha2" name="senha2" required>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary ">Cadastrar <i class="fa fa-check" aria-hidden="true"></i></button>
+                            <button type="submit" class="btn btn-primary ">Atualizar <i class="fa fa-check" aria-hidden="true"></i></button>
                         </form>
                     </div>
                 </div>
