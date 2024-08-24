@@ -39,6 +39,16 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="descricao">Descrição:</label>
+                                <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="preco">Preço:</label>
+                                <input type="number" step="0.01" class="form-control" id="preco" name="preco">
+                            </div>
+
+                            <div class="form-group">
                                 <label for="categoria_id">Categoria:</label>
                                 <select class="form-control" id="categoria_id" name="categoria_id" required>
                                     <option value="">Selecione uma categoria</option>
@@ -46,6 +56,16 @@
                                         <option value="{{ $category->id }}">{{ $category->nome }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="imagem_url">URL da Imagem:</label>
+                                <input type="text" class="form-control" id="imagem_url" name="imagem_url">
+                            </div>
+
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="ativo" name="ativo">
+                                <label class="form-check-label" for="ativo">Ativo</label>
                             </div>
 
                             <button type="submit" class="btn btn-primary ">Cadastrar <i class="fa fa-check" aria-hidden="true"></i></button>

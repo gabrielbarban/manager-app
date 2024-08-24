@@ -63,7 +63,7 @@
     document.querySelectorAll('.editar-produtos').forEach(btn => {
         btn.addEventListener('click', function() {
             const userId = this.getAttribute('data-id');
-            window.location.href = `/produtos/${userId}`;
+            window.location.href = `/produto/${userId}`;
         });
     });
 </script>

@@ -44,6 +44,7 @@
                                         <button type="submit" class="btn btn-primary btn-block">Login</button>
                                     </form>
                                 </div>
+                                <center><h6>Barban Softwares LTDA</h6></center>
                             </div>
                         </div>
                     </div>

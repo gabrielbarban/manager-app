@@ -13,7 +13,7 @@
           <div class="inner">
             @include('templatemo-js.partials.header')
             <div class="mb-3 d-flex">
-                <a href="/categorias" class="btn btn-primary"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a>
+                <a href="/produtos" class="btn btn-primary"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a>
             </div>
             <section class="main-banner">
                 @if(session('error'))
@@ -29,14 +29,46 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title text-center mb-4">Editar Categoria</h3>
-                        <form action="/categoria/save" method="POST">
+                        <h3 class="card-title text-center mb-4">Editar Produto</h3>
+                        <form action="/produto/save" method="POST">
                             @csrf
 
-                            <input type="hidden" id="id" name="id" value="{{ $categoria->id }}">
+                            <input type="hidden" id="id" name="id" value="{{ $produto->id }}">
                             <div class="form-group">
                                 <label for="nome">Nome:</label>
-                                <input type="text" class="form-control" id="nome" name="nome" value="{{ $categoria->nome }}" required>
+                                <input type="text" class="form-control" id="nome" name="nome" value="{{ $produto->nome }}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="descricao">Descrição:</label>
+                                <textarea class="form-control" id="descricao" name="descricao" rows="4" >{{ $produto->descricao }}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="preco">Preço:</label>
+                                <input type="number" step="0.01" class="form-control" id="preco" name="preco" value="{{ $produto->preco }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="categoria_id">Categoria:</label>
+                                <select class="form-control" id="categoria_id" name="categoria_id" required>
+                                    <option value="">Selecione uma categoria</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}" {{ $produto->categoria_id == $category->id ? 'selected' : '' }}>
+                                            {{ $category->nome }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="imagem_url">URL da Imagem:</label>
+                                <input type="text" class="form-control" id="imagem_url" name="imagem_url" value="{{ $produto->imagem_url }}">
+                            </div>
+
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="ativo" name="ativo" {{ $produto->ativo ? 'checked' : '' }}>
+                                <label class="form-check-label" for="ativo">Ativo</label>
                             </div>
 
                             <button type="submit" class="btn btn-primary ">Atualizar <i class="fa fa-check" aria-hidden="true"></i></button>

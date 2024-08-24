@@ -74,6 +74,8 @@ class ProdutoController extends Controller
         }
 
         $produto = $this->produtoService->get($id);
-        return view('templatemo-js.edit-produto')->with('produto', $produto);
+        $categories = $this->categoriaService->listCategorias();
+
+        return view('templatemo-js.edit-produto')->with('produto', $produto)->with('categories', $categories);
     }
 }
