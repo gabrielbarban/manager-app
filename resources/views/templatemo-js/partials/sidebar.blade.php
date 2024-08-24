@@ -14,6 +14,7 @@
         <nav id="menu">
             <ul>
             <li><a href="/painel"><i class="fa fa-tachometer" aria-hidden="true"></i> Painel</a></li>
+            <li><a href="/produtos"><i class="fa fa-bolt" aria-hidden="true"></i> Produtos</a></li>
             <li><a href="/receitas"><i class="fa fa-plus" aria-hidden="true"></i> Receitas</a></li>
             <li><a href="/despesas"><i class="fa fa-minus" aria-hidden="true"></i> Despesas</a></li>
             <li>
