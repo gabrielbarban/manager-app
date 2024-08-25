@@ -18,8 +18,9 @@ class Transacao extends Migration
             $table->string('titulo');
             $table->string('desc')->nullable();
             $table->integer('transacao_tipo_id');
-            $table->integer('categoria_id');
-            $table->integer('empresa_id');
+            $table->string('status');
+            $table->decimal('valor', 8, 2)->nullable();
+            $table->integer('cliente_id');
             $table->integer('usuario_id');
             $table->timestamp('data_liquidacao')->nullable();
             $table->string('obs')->nullable();

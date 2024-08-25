@@ -46,3 +46,8 @@ Route::get('/produtos', 'App\Http\Controllers\ProdutoController@index');
 Route::get('/produto/novo', 'App\Http\Controllers\ProdutoController@novo');
 Route::get('/produto/{id}', 'App\Http\Controllers\ProdutoController@get');
 Route::post('/produto/save', 'App\Http\Controllers\ProdutoController@save');
+
+Route::get('/entradas', 'App\Http\Controllers\EntradasController@index');
+Route::get('/entrada/novo', 'App\Http\Controllers\EntradasController@novo');
+Route::get('/entrada/{id}', 'App\Http\Controllers\EntradasController@get');
+Route::post('/entrada/save', 'App\Http\Controllers\EntradasController@save');
