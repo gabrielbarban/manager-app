@@ -6,18 +6,21 @@ use Illuminate\Http\Request;
 use App\Services\EntradasService;
 use App\Services\UsuarioService;
 use App\Services\EmpresaService;
+use App\Services\ProdutoService;
 
 class EntradasController extends Controller
 {
     protected $entradasService;
     protected $usuarioService;
     protected $empresaService;
+    protected $produtosService;
 
-    public function __construct(EntradasService $entradasService, UsuarioService $usuarioService, EmpresaService $empresaService)
+    public function __construct(EntradasService $entradasService, UsuarioService $usuarioService, EmpresaService $empresaService, ProdutoService $produtosService)
     {
         $this->entradasService = $entradasService;
         $this->usuarioService = $usuarioService;
         $this->empresaService = $empresaService;
+        $this->produtosService = $produtosService;
     }
 
     public function index()
@@ -40,8 +43,9 @@ class EntradasController extends Controller
             return redirect('/login');
         }
         $usuarios = $this->usuarioService->listUsuarios();
-        $empresas = $this->empresaService->listEmpresas();
-        return view('templatemo-js.novo-entrada')->with('usuarios', $usuarios)->with('empresas', $empresas);
+        $clientes = $this->empresaService->listEmpresas();
+        $produtos = $this->produtosService->listProdutos();
+        return view('templatemo-js.novo-entrada')->with('usuarios', $usuarios)->with('clientes', $clientes)->with('produtos', $produtos);
     }
 
     public function save(Request $request)
@@ -50,12 +54,6 @@ class EntradasController extends Controller
         if(empty($logged) || $logged == 0 || $logged == '0'){
             session()->put('message', 'Usuário/senha expirado');
             return redirect('/login');
-        }
-
-        if((isset($request->id) && !empty($request->id)) && ($request->senha !== $request->senha2)){
-            return redirect('/produto'.'/'.$request->id)->with('error', 'As senhas informadas não são iguais.');
-        } elseif((!isset($request->id)) && ($request->senha !== $request->senha2)){
-            return redirect('/produto/novo')->with('error', 'As senhas informadas não são iguais.');
         }
 
         $entrada = $this->entradasService->save($request);

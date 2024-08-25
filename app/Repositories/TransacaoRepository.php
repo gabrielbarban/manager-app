@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Transacao;
+use App\Models\TransacaoProduto;
 
 class TransacaoRepository
 {
@@ -32,10 +33,23 @@ class TransacaoRepository
         $transacao->status = $data->status ?? "";
         $transacao->valor = $data->valor ?? 0;
         $transacao->cliente_id = $data->cliente_id ?? 0;
-        $transacao->usuario_id = $data->usuario_id ?? 0;
-        $transacao->data_liquidacao = $data->data_liquidacao ?? "";
+        $transacao->usuario_id = 1;
+        $transacao->data_liquidacao = $data->data_liquidacao ?? null;
         $transacao->obs = $data->obs ?? "";
         $transacao->save();
+
+        $transacaoProdutos = TransacaoProduto::where("transacao_id", $transacao->id)->get();
+        foreach($transacaoProdutos as $tproduto){
+            $tproduto->delete();
+        }
+
+        foreach($data->produto_id as $id){
+            $transacaoProduto = new TransacaoProduto();
+            $transacaoProduto->produto_id = $id;
+            $transacaoProduto->transacao_id = $transacao->id;
+            $transacaoProduto->save();
+        }
+
         
         return $transacao;
     }

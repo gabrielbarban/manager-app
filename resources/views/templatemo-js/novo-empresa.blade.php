@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Nova Empresa | Manager</title>
+    <title>Novo cliente | Manager</title>
   </head>
 
 <body class="is-preload">
@@ -29,7 +29,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title text-center mb-4">Nova Empresa</h3>
+                        <h3 class="card-title text-center mb-4">Novo Cliente</h3>
                         <form action="/empresa/save" method="POST">
                             @csrf
 

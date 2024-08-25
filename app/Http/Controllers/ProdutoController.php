@@ -78,4 +78,11 @@ class ProdutoController extends Controller
 
         return view('templatemo-js.edit-produto')->with('produto', $produto)->with('categories', $categories);
     }
+
+    public function calculaValor(Request $request)
+    {
+        $produtos = $request->produtos ?? [];
+        $valor = $this->produtoService->calculaValor($produtos);
+        return response()->json(['valor' => $valor]);
+    }
 }

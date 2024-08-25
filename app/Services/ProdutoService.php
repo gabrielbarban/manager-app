@@ -18,6 +18,11 @@ class ProdutoService
         return $this->produtoRepository->listProdutos();
     }
 
+    public function calculaValor($produtos)
+    {
+        return $this->produtoRepository->calculaValor($produtos);
+    }
+
     public function save($data)
     {
         return $this->produtoRepository->save($data);

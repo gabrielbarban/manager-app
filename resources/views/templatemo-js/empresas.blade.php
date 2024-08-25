@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Empresas | Manager</title>
+    <title>Clientes | Manager</title>
   </head>
 
 <body class="is-preload">
@@ -13,7 +13,7 @@
           <div class="inner">
             @include('templatemo-js.partials.header')
             <div class="mb-3 d-flex justify-content-end">
-                <a href="/empresa/novo" class="btn btn-primary">Adicionar Nova Empresa <i class="fa fa-university" aria-hidden="true"></i></a>
+                <a href="/empresa/novo" class="btn btn-primary">Adicionar Nova Cliente <i class="fa fa-university" aria-hidden="true"></i></a>
             </div>
             @if(session('success'))
                 <div id="success-alert" class="alert alert-success">

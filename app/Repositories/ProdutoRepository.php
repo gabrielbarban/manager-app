@@ -12,6 +12,18 @@ class ProdutoRepository
         return $produtos;
     }
 
+    public function calculaValor($produtos)
+    {
+        $valor = 0;
+        foreach($produtos as $id_produto){
+            $produto = Produto::where("id", $id_produto)->first();
+            if(!empty($produto->preco)){
+                $valor = $valor + $produto->preco;
+            }
+        }
+        return $valor;
+    }
+
     public function save($data)
     {
         if(isset($data->id) && !empty($data->id)){

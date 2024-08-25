@@ -29,7 +29,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title text-center mb-4">Editar Empresa</h3>
+                        <h3 class="card-title text-center mb-4">Editar Cliente</h3>
                         <form action="/empresa/save" method="POST">
                             @csrf
 

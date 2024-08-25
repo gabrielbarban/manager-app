@@ -44,6 +44,7 @@ Route::post('/categoria/save', 'App\Http\Controllers\CategoriaController@save');
 
 Route::get('/produtos', 'App\Http\Controllers\ProdutoController@index');
 Route::get('/produto/novo', 'App\Http\Controllers\ProdutoController@novo');
+Route::get('/produto/calcula-valor', 'App\Http\Controllers\ProdutoController@calculaValor');
 Route::get('/produto/{id}', 'App\Http\Controllers\ProdutoController@get');
 Route::post('/produto/save', 'App\Http\Controllers\ProdutoController@save');
 
