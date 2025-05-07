@@ -13,6 +13,7 @@ class Entidade extends Model
         'nome',
         'email',
         'telefone',
+        'moeda',
         'cnpj',
         'obs',
         'created_at',

@@ -23,6 +23,7 @@ class EntidadeRepository
         $entidade->email = $data->email;
         $entidade->nome = $data->nome;
         $entidade->telefone = $data->telefone;
+        $entidade->moeda = $data->moeda;
         $entidade->cnpj = $data->cnpj;
         $entidade->obs = $data->obs;
         $entidade->save();
