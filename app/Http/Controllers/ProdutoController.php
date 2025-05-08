@@ -20,7 +20,7 @@ class ProdutoController extends Controller
     public function index()
     {
         $logged = \Illuminate\Support\Facades\Session::get('logged');
-        if(empty($logged) || $logged == 0 || $logged == '0'){
+        if(empty($logged) || $logged === 0 || $logged === '0'){
             session()->put('message', 'Usuário/senha expirado');
             return redirect('/login');
         }
@@ -32,7 +32,7 @@ class ProdutoController extends Controller
     public function novo()
     {
         $logged = \Illuminate\Support\Facades\Session::get('logged');
-        if(empty($logged) || $logged == 0 || $logged == '0'){
+        if(empty($logged) || $logged === 0 || $logged === '0'){
             session()->put('message', 'Usuário/senha expirado');
             return redirect('/login');
         }
@@ -43,7 +43,7 @@ class ProdutoController extends Controller
     public function save(Request $request)
     {
         $logged = \Illuminate\Support\Facades\Session::get('logged');
-        if(empty($logged) || $logged == 0 || $logged == '0'){
+        if(empty($logged) || $logged === 0 || $logged === '0'){
             session()->put('message', 'Usuário/senha expirado');
             return redirect('/login');
         }
@@ -68,7 +68,7 @@ class ProdutoController extends Controller
     public function get($id)
     {
         $logged = \Illuminate\Support\Facades\Session::get('logged');
-        if(empty($logged) || $logged == 0 || $logged == '0'){
+        if(empty($logged) || $logged === 0 || $logged === '0'){
             session()->put('message', 'Usuário/senha expirado');
             return redirect('/login');
         }

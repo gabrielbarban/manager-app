@@ -17,7 +17,7 @@ class DespesasController extends Controller
     public function index()
     {
         $logged = \Illuminate\Support\Facades\Session::get('logged');
-        if(empty($logged) || $logged == 0 || $logged == '0'){
+        if(empty($logged) || $logged === 0 || $logged === '0'){
             session()->put('message', 'Usuário/senha expirado');
             return redirect('/login');
         }

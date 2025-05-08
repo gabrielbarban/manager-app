@@ -9,20 +9,24 @@ class TransacaoRepository
 {
     public function listEntradas()
     {
-        $entradas = Transacao::where("transacao_tipo_id", 1)->get();
+        $entidade_id = \Illuminate\Support\Facades\Session::get('entidade_id') ?? 1;
+        $entradas = Transacao::where('entidade_id', $entidade_id)->where("transacao_tipo_id", 1)->get();
         return $entradas;
     }
 
     public function listSaidas()
     {
-        $saidas = Transacao::where("transacao_tipo_id", 2)->get();
+        $entidade_id = \Illuminate\Support\Facades\Session::get('entidade_id') ?? 1;
+        $saidas = Transacao::where('entidade_id', $entidade_id)->where("transacao_tipo_id", 2)->get();
         return $saidas;
     }
 
     public function save($data)
     {
+        $entidade_id = \Illuminate\Support\Facades\Session::get('entidade_id') ?? 1;
+
         if(isset($data->id) && !empty($data->id)){
-            $transacao = Transacao::where("id", $data->id)->first();
+            $transacao = Transacao::where('entidade_id', $entidade_id)->where("id", $data->id)->first();
         } else{
             $transacao = new Transacao();
         }
@@ -36,6 +40,7 @@ class TransacaoRepository
         $transacao->usuario_id = 1;
         $transacao->data_liquidacao = $data->data_liquidacao ?? null;
         $transacao->obs = $data->obs ?? "";
+        $transacao->entidade_id = $entidade_id;
         $transacao->save();
 
         $transacaoProdutos = TransacaoProduto::where("transacao_id", $transacao->id)->get();
@@ -50,13 +55,13 @@ class TransacaoRepository
             $transacaoProduto->save();
         }
 
-        
         return $transacao;
     }
 
     public function get($id)
     {
-        $transacao = Transacao::where("id", $id)->first();
+        $entidade_id = \Illuminate\Support\Facades\Session::get('entidade_id') ?? 1;
+        $transacao = Transacao::where('entidade_id', $entidade_id)->where("id", $id)->first();
         return $transacao;
     }
 }

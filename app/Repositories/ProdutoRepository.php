@@ -8,7 +8,8 @@ class ProdutoRepository
 {
     public function listProdutos()
     {
-        $produtos = Produto::get();
+        $entidade_id = \Illuminate\Support\Facades\Session::get('entidade_id') ?? 1;
+        $produtos = Produto::where('entidade_id', $entidade_id)->get();
         return $produtos;
     }
 
@@ -26,8 +27,10 @@ class ProdutoRepository
 
     public function save($data)
     {
+        $entidade_id = \Illuminate\Support\Facades\Session::get('entidade_id') ?? 1;
+
         if(isset($data->id) && !empty($data->id)){
-            $produto = Produto::where("id", $data->id)->first();
+            $produto = Produto::where('entidade_id', $entidade_id)->where("id", $data->id)->first();
         } else{
             $produto = new Produto();
         }
@@ -38,6 +41,7 @@ class ProdutoRepository
         $produto->preco = $data->preco ?? 0;
         $produto->imagem_url = $data->imagem_url ?? "";
         $produto->ativo = ($data->ativo === "on") ? 1 : 0;
+        $produto->entidade_id = $entidade_id;
         $produto->save();
         
         return $produto;
@@ -45,7 +49,8 @@ class ProdutoRepository
 
     public function get($id)
     {
-        $produto = Produto::where("id", $id)->first();
+        $entidade_id = \Illuminate\Support\Facades\Session::get('entidade_id') ?? 1;
+        $produto = Produto::where('entidade_id', $entidade_id)->where("id", $id)->first();
         return $produto;
     }
 }
