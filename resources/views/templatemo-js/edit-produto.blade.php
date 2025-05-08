@@ -12,6 +12,9 @@
         <div id="main">
           <div class="inner">
             @include('templatemo-js.partials.header')
+            <?php
+                $tipo_entidade = \Illuminate\Support\Facades\Session::get('tipo_entidade');
+            ?>
             <div class="mb-3 d-flex">
                 <a href="/produtos" class="btn btn-primary"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a>
             </div>
@@ -29,7 +32,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title text-center mb-4">Editar Produto</h3>
+                        <h3 class="card-title text-center mb-4">Editar <?= ($tipo_entidade == "consultoria") ? "serviço" : "produto" ?></h3>
                         <form action="/produto/save" method="POST">
                             @csrf
 

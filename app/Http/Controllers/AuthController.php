@@ -34,6 +34,12 @@ class AuthController extends Controller
             session()->put('nome_usuario', $response->nome);
             session()->put('entidade_id', $response->entidade_id);
             session()->put('email_usuario', $response->email);
+
+            $checkEntidade = \App\Models\Entidade::where("id", $response->entidade_id)->first();
+            if(!empty($checkEntidade)){
+                session()->put('tipo_entidade', $checkEntidade->tipo) ?? "consultoria";
+            }
+
             return redirect('/painel');
         }
     }

@@ -12,8 +12,11 @@
         <div id="main">
           <div class="inner">
             @include('templatemo-js.partials.header')
+            <?php
+                $tipo_entidade = \Illuminate\Support\Facades\Session::get('tipo_entidade');
+            ?>
             <div class="mb-3 d-flex justify-content-end">
-                <a href="/produto/novo" class="btn btn-primary">Adicionar Novo Produto <i class="fa fa-tag" aria-hidden="true"></i></a>
+                <a href="/produto/novo" class="btn btn-primary">Adicionar novo <?= ($tipo_entidade == "consultoria") ? "serviço" : "produto" ?> <i class="fa fa-tag" aria-hidden="true"></i></a>
             </div>
             @if(session('success'))
                 <div id="success-alert" class="alert alert-success">
