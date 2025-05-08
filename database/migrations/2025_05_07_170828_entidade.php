@@ -19,6 +19,7 @@ class Entidade extends Migration
             $table->string('email')->nullable();
             $table->string('telefone')->nullable();
             $table->string('moeda')->nullable();
+            $table->string('tipo')->nullable();
             $table->string('cnpj')->nullable();
             $table->string('obs')->nullable();
             $table->timestamps();
