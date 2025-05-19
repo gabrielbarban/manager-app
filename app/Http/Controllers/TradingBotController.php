@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\Trade;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class TradingBotController extends Controller
 {
@@ -21,18 +24,30 @@ class TradingBotController extends Controller
         $symbol = 'BTC';
         $price = $this->getBitcoinPrice($symbol);
 
+        $lastPrice = DB::table('prices')->orderByDesc('id')->first();
+        if (!$lastPrice || floatval($lastPrice->price) !== floatval($price)) {
+            DB::table('prices')->insert([
+                'price' => $price,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+
         $activeTrade = Trade::where('status', 'aguardando_venda')->first();
 
         if ($activeTrade) {
             $currentPrice = $price;
             $targetPrice = $activeTrade->buy_price * 1.005;
             \Log::info("currentPrice: ".$currentPrice);
-            \Log::info("buy_price: ".$activeTrade->buy_price);
             \Log::info("targetPrice: ".$targetPrice);
             \Log::info("\n\n");
             if ($currentPrice >= $targetPrice) {
                 $this->sellBitcoin($activeTrade->amount_crypto);
-                $activeTrade->update(['status' => 'vendido']);
+                $profit = $activeTrade->amount_crypto * ($currentPrice - $activeTrade->buy_price);
+                $activeTrade->update([
+                    'status' => 'vendido',
+                    'profit_brl' => round($profit, 2)
+                ]);
                 return response()->json(['message' => 'Venda realizada com lucro.']);
             }
 
