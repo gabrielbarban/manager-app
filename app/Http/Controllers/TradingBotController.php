@@ -37,17 +37,19 @@ class TradingBotController extends Controller
 
         if ($activeTrade) {
             $currentPrice = $price;
-            $targetPrice = $activeTrade->buy_price * 1.005;
+            $targetPrice = $activeTrade->buy_price * 1.00004;
             \Log::info("currentPrice: ".$currentPrice);
             \Log::info("targetPrice: ".$targetPrice);
             \Log::info("\n\n");
             if ($currentPrice >= $targetPrice) {
                 $this->sellBitcoin($activeTrade->amount_crypto);
-                $profit = $activeTrade->amount_crypto * ($currentPrice - $activeTrade->buy_price);
-                $activeTrade->update([
-                    'status' => 'vendido',
-                    'profit_brl' => round($profit, 2)
-                ]);
+                $price = $this->getBitcoinPrice('BTC');
+                $profit = $activeTrade->amount_crypto * ($price - $activeTrade->buy_price);
+
+                $activeTrade->status = 'vendido';
+                $activeTrade->profit_brl = round($profit, 2);
+
+                $activeTrade->save();
                 return response()->json(['message' => 'Venda realizada com lucro.']);
             }
 
@@ -118,16 +120,17 @@ class TradingBotController extends Controller
         ])->post($url, [
             'coin_pair' => 'BRLBTC',
             'type' => 'sell',
-            'order_type' => 'market',
-            'amount' => round($btcAmount, 8),
-            'price' => 1
+            'order_type' => 'limited',
+            'amount' => $btcAmount,
+            'price' => $price
         ]);
 
         if (!$response->successful()) {
-            \Log::error('Erro na venda de Bitcoin', [
+            Log::error('Erro na venda de Bitcoin', [
                 'status' => $response->status(),
                 'body' => $response->body(),
             ]);
+            Log::info($btcAmount);
             throw new \Exception('Erro ao vender Bitcoin.');
         }
 
