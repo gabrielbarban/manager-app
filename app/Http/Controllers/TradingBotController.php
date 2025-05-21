@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Request;
 use App\Models\Trade;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +18,7 @@ class TradingBotController extends Controller
 
     public function runBot()
     {
-        \Log::info("CRONTAB SENDO EXECUTADO");
+        Log::info("CRONTAB SENDO EXECUTADO");
 
         $symbol = 'BTC';
         $price = $this->getBitcoinPrice($symbol);
@@ -37,19 +36,22 @@ class TradingBotController extends Controller
 
         if ($activeTrade) {
             $currentPrice = $price;
-            $targetPrice = $activeTrade->buy_price * 1.00004;
-            \Log::info("currentPrice: ".$currentPrice);
-            \Log::info("targetPrice: ".$targetPrice);
-            \Log::info("\n\n");
+            $targetPrice = $activeTrade->buy_price * 1.00007;
+            Log::info("currentPrice: ".$currentPrice);
+            Log::info("targetPrice: ".$targetPrice);
+            Log::info("\n\n");
             if ($currentPrice >= $targetPrice) {
-                $this->sellBitcoin($activeTrade->amount_crypto);
-                $price = $this->getBitcoinPrice('BTC');
-                $profit = $activeTrade->amount_crypto * ($price - $activeTrade->buy_price);
+                $sell_price = $this->sellBitcoin($activeTrade->amount_crypto);
+                $profit = $activeTrade->amount_crypto * ($sell_price - $activeTrade->buy_price);
 
                 $activeTrade->status = 'vendido';
                 $activeTrade->profit_brl = round($profit, 2);
 
                 $activeTrade->save();
+                Log::info('profit_brl:');
+                Log::info($activeTrade->profit_brl);
+                Log::info('sell_price:');
+                Log::info($sell_price);
                 return response()->json(['message' => 'Venda realizada com lucro.']);
             }
 
@@ -75,6 +77,20 @@ class TradingBotController extends Controller
     private function buyBitcoin($valueInBRL)
     {
         $price = $this->getBitcoinPrice('BTC');
+
+        $averageLast10Min = DB::table('prices')
+            ->where('created_at', '>=', now()->subMinutes(50))
+            ->avg('price');
+
+        if ($averageLast10Min && $price > ($averageLast10Min * 1.007)) {
+            Log::info('averageLast10Min:');
+            Log::info($averageLast10Min);
+            Log::info('price:');
+            Log::info($price);
+            Log::info('Compra abortada. Preço atual muito acima da média dos últimos 50 minutos.');
+            return response()->json(['message' => 'Preço atual acima da média. Aguardando desvalorização para comprar.']);
+        }
+
         $btcAmount = $valueInBRL / $price;
 
         $url = 'https://brasilbitcoin.com.br/api/create_order';
@@ -91,7 +107,7 @@ class TradingBotController extends Controller
         ]);
 
         if (!$response->successful()) {
-            \Log::error('Erro na compra de Bitcoin', [
+            Log::error('Erro na compra de Bitcoin', [
                 'status' => $response->status(),
                 'body' => $response->body(),
             ]);
@@ -134,6 +150,6 @@ class TradingBotController extends Controller
             throw new \Exception('Erro ao vender Bitcoin.');
         }
 
-        return $response->json();
+        return $price;
     }
 }
