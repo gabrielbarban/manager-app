@@ -40,6 +40,20 @@ class TradesController extends Controller
         $todayProfitNet = $todayProfit - ($todayProfit * 0.005);
         $monthProfitNet = $monthProfit - ($monthProfit * 0.005);
 
+        $todayTradesCount = DB::table('trades')
+            ->whereDate('updated_at', now()->toDateString())
+            ->where('status', 'vendido')
+            ->count();
+
+        $monthTradesCount = DB::table('trades')
+            ->whereMonth('updated_at', now()->month)
+            ->whereYear('updated_at', now()->year)
+            ->where('status', 'vendido')
+            ->count();
+
+        $todayAvgProfit = $todayTradesCount ? $todayProfit / $todayTradesCount : 0;
+        $monthAvgProfit = $monthTradesCount ? $monthProfit / $monthTradesCount : 0;
+
         $btcHistory = DB::table('prices')
             ->where('created_at', '>=', now()->subHours(24))
             ->orderBy('created_at')
@@ -52,7 +66,11 @@ class TradesController extends Controller
             'monthProfit' => $monthProfit,
             'todayProfitNet' => $todayProfitNet,
             'monthProfitNet' => $monthProfitNet,
-            'btcHistory' => $btcHistory
+            'btcHistory' => $btcHistory,
+            'todayTradesCount' => $todayTradesCount,
+            'monthTradesCount' => $monthTradesCount,
+            'todayAvgProfit' => $todayAvgProfit,
+            'monthAvgProfit' => $monthAvgProfit
         ]);
     }
 }

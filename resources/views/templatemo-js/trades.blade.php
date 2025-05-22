@@ -17,6 +17,9 @@
       font-size: 2rem;
       opacity: 0.7;
     }
+    .card.text-white * {
+      color: white !important;
+    }
   </style>
 </head>
 
@@ -34,48 +37,78 @@
             <canvas id="btcChart" height="100"></canvas>
           </div>
 
-          <div class="row mt-4 mb-4">
+            <div class="row mt-4 mb-4">
             <div class="col-md-4">
-              <div class="card bg-warning text-white card-fixed-height">
+                <div class="card bg-warning text-white card-fixed-height">
                 <div class="card-body d-flex flex-column justify-content-center">
-                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <h5 class="card-title">Preço do Bitcoin</h5>
-                      <p class="card-text font-weight-bold">R$ {{ number_format($btcPrice, 2, ',', '.') }}</p>
+                        <h5 class="card-title">Preço do Bitcoin</h5>
+                        <p class="card-text font-weight-bold">R$ {{ number_format($btcPrice, 2, ',', '.') }}</p>
                     </div>
                     <i class="fas fa-coins card-icon"></i>
-                  </div>
+                    </div>
                 </div>
-              </div>
+                </div>
             </div>
             <div class="col-md-4">
-              <div class="card bg-dark text-white card-fixed-height">
+                <div class="card bg-dark text-white card-fixed-height">
                 <div class="card-body d-flex flex-column justify-content-center">
-                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <h5 class="card-title">Lucro de hoje</h5>
-                      <p class="card-text mb-1"><strong>R$ {{ number_format($todayProfit, 2, ',', '.') }}</strong></p>
+                        <h5 class="card-title">Lucro de hoje</h5>
+                        <p class="card-text mb-1"><strong>R$ {{ number_format($todayProfit, 2, ',', '.') }}</strong></p>
                     </div>
                     <i class="fas fa-calendar-day card-icon"></i>
-                  </div>
+                    </div>
                 </div>
-              </div>
+                </div>
             </div>
             <div class="col-md-4">
-              <div class="card bg-success text-white card-fixed-height">
+                <div class="card bg-success text-white card-fixed-height">
                 <div class="card-body d-flex flex-column justify-content-center">
-                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <h5 class="card-title">Lucro do mês</h5>
-                      <p class="card-text mb-1"><strong>R$ {{ number_format($monthProfit, 2, ',', '.') }}</strong></p>
+                        <h5 class="card-title">Lucro do mês</h5>
+                        <p class="card-text mb-1"><strong>R$ {{ number_format($monthProfit, 2, ',', '.') }}</strong></p>
                     </div>
                     <i class="fas fa-calendar-alt card-icon"></i>
-                  </div>
+                    </div>
                 </div>
-              </div>
+                </div>
             </div>
-          </div>
+            </div>
 
+            <div class="row mt-4 mb-4">
+            <div class="col-md-6">
+                <div class="card bg-primary text-white card-fixed-height">
+                <div class="card-body d-flex flex-column justify-content-center">
+                    <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Trades de hoje</h5>
+                        <p class="card-text mb-1">Média de Lucro: <strong>R$ {{ number_format($todayAvgProfit, 2, ',', '.') }}</strong></p>
+                        <p class="card-text mb-0">Quantidade: <strong>{{ $todayTradesCount }}</strong></p>
+                    </div>
+                    <i class="fas fa-chart-line card-icon"></i>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card bg-danger text-white card-fixed-height">
+                <div class="card-body d-flex flex-column justify-content-center">
+                    <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Trades do mês</h5>
+                        <p class="card-text mb-1">Média de Lucro: <strong>R$ {{ number_format($monthAvgProfit, 2, ',', '.') }}</strong></p>
+                        <p class="card-text mb-0">Quantidade: <strong>{{ $monthTradesCount }}</strong></p>
+                    </div>
+                    <i class="fas fa-chart-bar card-icon"></i>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>

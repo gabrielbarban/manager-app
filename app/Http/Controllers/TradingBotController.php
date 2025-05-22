@@ -39,7 +39,7 @@ class TradingBotController extends Controller
             $minutes = $activeTrade->created_at->diffInMinutes(now());
 
             if ($minutes <= 120) {
-                $targetPrice = $activeTrade->buy_price * 1.0112;
+                $targetPrice = $activeTrade->buy_price * 1.0110;
             } elseif ($minutes <= 240) {
                 $targetPrice = $activeTrade->buy_price * 1.002;
             } else {
@@ -95,7 +95,7 @@ class TradingBotController extends Controller
             ->where('created_at', '>=', now()->subMinutes(230))
             ->avg('price');
 
-        if ($averageLastMins && $price > ($averageLastMins * 1.0142)) {
+        if ($averageLastMins && $price > ($averageLastMins * 1.0141)) {
             Log::info('averageLastMins:');
             Log::info($averageLastMins);
             Log::info('price:');
