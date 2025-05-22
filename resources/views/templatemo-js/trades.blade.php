@@ -81,6 +81,11 @@
                 @endforeach
               </tbody>
             </table>
+            <div class="d-flex justify-content-center mt-4">
+            <nav>
+                {!! $trades->appends(request()->query())->links('pagination::bootstrap-4') !!}
+            </nav>
+            </div>
           </div>
         </section>
       </div>
