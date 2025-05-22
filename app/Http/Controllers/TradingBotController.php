@@ -39,9 +39,9 @@ class TradingBotController extends Controller
             $minutes = $activeTrade->created_at->diffInMinutes(now());
 
             if ($minutes <= 120) {
-                $targetPrice = $activeTrade->buy_price * 1.0111;
+                $targetPrice = $activeTrade->buy_price * 1.0112;
             } elseif ($minutes <= 240) {
-                $targetPrice = $activeTrade->buy_price * 1.006;
+                $targetPrice = $activeTrade->buy_price * 1.002;
             } else {
                 $targetPrice = $activeTrade->buy_price * 1.0;
             }
@@ -92,7 +92,7 @@ class TradingBotController extends Controller
         $price = $this->getBitcoinPrice('BTC');
 
         $averageLastMins = DB::table('prices')
-            ->where('created_at', '>=', now()->subMinutes(210))
+            ->where('created_at', '>=', now()->subMinutes(230))
             ->avg('price');
 
         if ($averageLastMins && $price > ($averageLastMins * 1.0142)) {
@@ -100,7 +100,7 @@ class TradingBotController extends Controller
             Log::info($averageLastMins);
             Log::info('price:');
             Log::info($price);
-            Log::info('Compra abortada. Preço atual muito acima da média dos últimos 210 minutos.');
+            Log::info('Compra abortada. Preço atual muito acima da média dos últimos 230 minutos.');
             return response()->json(['message' => 'Preço atual acima da média. Aguardando desvalorização para comprar.']);
         }
 

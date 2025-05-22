@@ -6,11 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Trades | Manager</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <style>
     .card-fixed-height {
       height: 160px;
+    }
+    .card-icon {
+      font-size: 2rem;
+      opacity: 0.7;
     }
   </style>
 </head>
@@ -33,24 +38,39 @@
             <div class="col-md-4">
               <div class="card bg-warning text-white card-fixed-height">
                 <div class="card-body d-flex flex-column justify-content-center">
-                  <h5 class="card-title">Preço do Bitcoin</h5>
-                  <p class="card-text font-weight-bold">R$ {{ number_format($btcPrice, 2, ',', '.') }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h5 class="card-title">Preço do Bitcoin</h5>
+                      <p class="card-text font-weight-bold">R$ {{ number_format($btcPrice, 2, ',', '.') }}</p>
+                    </div>
+                    <i class="fas fa-coins card-icon"></i>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="col-md-4">
               <div class="card bg-dark text-white card-fixed-height">
                 <div class="card-body d-flex flex-column justify-content-center">
-                  <h5 class="card-title">Lucro de hoje</h5>
-                  <p class="card-text mb-1"><strong>R$ {{ number_format($todayProfit, 2, ',', '.') }}</strong></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h5 class="card-title">Lucro de hoje</h5>
+                      <p class="card-text mb-1"><strong>R$ {{ number_format($todayProfit, 2, ',', '.') }}</strong></p>
+                    </div>
+                    <i class="fas fa-calendar-day card-icon"></i>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="col-md-4">
               <div class="card bg-success text-white card-fixed-height">
                 <div class="card-body d-flex flex-column justify-content-center">
-                  <h5 class="card-title">Lucro do mês</h5>
-                  <p class="card-text mb-1"><strong>R$ {{ number_format($monthProfit, 2, ',', '.') }}</strong></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h5 class="card-title">Lucro do mês</h5>
+                      <p class="card-text mb-1"><strong>R$ {{ number_format($monthProfit, 2, ',', '.') }}</strong></p>
+                    </div>
+                    <i class="fas fa-calendar-alt card-icon"></i>
+                  </div>
                 </div>
               </div>
             </div>
@@ -82,9 +102,9 @@
               </tbody>
             </table>
             <div class="d-flex justify-content-center mt-4">
-            <nav>
+              <nav>
                 {!! $trades->appends(request()->query())->links('pagination::bootstrap-4') !!}
-            </nav>
+              </nav>
             </div>
           </div>
         </section>
