@@ -1,5 +1,6 @@
 <?php
     $id_usuario = \Illuminate\Support\Facades\Session::get('id_usuario');
+    $entidade_id = \Illuminate\Support\Facades\Session::get('entidade_id');
     $nome_usuario = \Illuminate\Support\Facades\Session::get('nome_usuario');
     $email_usuario = \Illuminate\Support\Facades\Session::get('email_usuario');
     $tipo_entidade = \Illuminate\Support\Facades\Session::get('tipo_entidade');
@@ -15,6 +16,11 @@
         <nav id="menu">
             <ul>
             <li><a href="/painel"><i class="fa fa-tachometer" aria-hidden="true"></i> Painel</a></li>
+
+            <?php if($entidade_id == 1){ ?>
+                <li><a href="/trades"><i class="fa fa-btc" aria-hidden="true"></i> Trades </a></li>
+            <?php } ?>
+
             <li><a href="/produtos"><i class="fa fa-bolt" aria-hidden="true"></i> <?= ($tipo_entidade == "consultoria") ? "Serviços" : "Produtos" ?></a></li>
             <li><a href="/entradas"><i class="fa fa-plus" aria-hidden="true"></i> Receitas</a></li>
             <li><a href="/despesas"><i class="fa fa-minus" aria-hidden="true"></i> Despesas</a></li>

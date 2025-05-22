@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/trading-bot/run', [TradingBotController::class, 'runBot']);
+Route::get('/trading-bot/run-teste', [TradingBotController::class, 'runBotTeste']);

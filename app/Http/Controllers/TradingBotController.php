@@ -36,12 +36,25 @@ class TradingBotController extends Controller
 
         if ($activeTrade) {
             $currentPrice = $price;
-            $targetPrice = $activeTrade->buy_price * 1.00007;
+            $minutes = $activeTrade->created_at->diffInMinutes(now());
+
+            if ($minutes <= 120) {
+                $targetPrice = $activeTrade->buy_price * 1.0111;
+            } elseif ($minutes <= 240) {
+                $targetPrice = $activeTrade->buy_price * 1.006;
+            } else {
+                $targetPrice = $activeTrade->buy_price * 1.0;
+            }
+
             Log::info("currentPrice: ".$currentPrice);
             Log::info("targetPrice: ".$targetPrice);
             Log::info("\n\n");
+
             if ($currentPrice >= $targetPrice) {
-                $sell_price = $this->sellBitcoin($activeTrade->amount_crypto);
+                $retorno = $this->sellBitcoin($activeTrade->amount_crypto);
+                $sell_price = $retorno["price"];
+                $amount_t = $retorno["amount_t"];
+                $id_transacao = $retorno["id"];
                 $profit = $activeTrade->amount_crypto * ($sell_price - $activeTrade->buy_price);
 
                 $activeTrade->status = 'vendido';
@@ -52,7 +65,7 @@ class TradingBotController extends Controller
                 Log::info($activeTrade->profit_brl);
                 Log::info('sell_price:');
                 Log::info($sell_price);
-                return response()->json(['message' => 'Venda realizada com lucro.']);
+                return response()->json(['message' => 'Venda realizada.']);
             }
 
             return response()->json(['message' => 'AGUARDANDO VALORIZACAO.']);
@@ -78,16 +91,16 @@ class TradingBotController extends Controller
     {
         $price = $this->getBitcoinPrice('BTC');
 
-        $averageLast10Min = DB::table('prices')
-            ->where('created_at', '>=', now()->subMinutes(120))
+        $averageLastMins = DB::table('prices')
+            ->where('created_at', '>=', now()->subMinutes(210))
             ->avg('price');
 
-        if ($averageLast10Min && $price > ($averageLast10Min * 1.007)) {
-            Log::info('averageLast10Min:');
-            Log::info($averageLast10Min);
+        if ($averageLastMins && $price > ($averageLastMins * 1.0142)) {
+            Log::info('averageLastMins:');
+            Log::info($averageLastMins);
             Log::info('price:');
             Log::info($price);
-            Log::info('Compra abortada. Preço atual muito acima da média dos últimos 120 minutos.');
+            Log::info('Compra abortada. Preço atual muito acima da média dos últimos 210 minutos.');
             return response()->json(['message' => 'Preço atual acima da média. Aguardando desvalorização para comprar.']);
         }
 
@@ -150,6 +163,12 @@ class TradingBotController extends Controller
             throw new \Exception('Erro ao vender Bitcoin.');
         }
 
-        return $price;
+        $data = $response->json('data');
+
+        return [
+            'price' => $data['price'],
+            'amount_t' => $data['amount_t'],
+            'id' => $data['id'],
+        ];
     }
 }

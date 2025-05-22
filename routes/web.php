@@ -52,3 +52,5 @@ Route::get('/entradas', 'App\Http\Controllers\EntradasController@index');
 Route::get('/entrada/novo', 'App\Http\Controllers\EntradasController@novo');
 Route::get('/entrada/{id}', 'App\Http\Controllers\EntradasController@get');
 Route::post('/entrada/save', 'App\Http\Controllers\EntradasController@save');
+
+Route::get('/trades', 'App\Http\Controllers\TradesController@index');
