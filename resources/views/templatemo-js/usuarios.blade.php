@@ -13,7 +13,7 @@
           <div class="inner">
             @include('templatemo-js.partials.header')
             <div class="mb-3 d-flex justify-content-end">
-                <a href="/usuario/novo" class="btn btn-primary">Adicionar Novo Usuário <i class="fa fa-user" aria-hidden="true"></i></a>
+                <a href="/usuario/novo" class="btn btn-primary">Adicionar novo Usuário <i class="fa fa-user" aria-hidden="true"></i></a>
             </div>
             @if(session('success'))
                 <div id="success-alert" class="alert alert-success">

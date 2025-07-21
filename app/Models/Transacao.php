@@ -13,6 +13,7 @@ class Transacao extends Model
         'transacao_tipo_id',
         'status',
         'valor',
+        'empresa_id',
         'cliente_id',
         'usuario_id',
         'data_liquidacao',

@@ -51,6 +51,7 @@ class TransacaoRepository
         foreach($data->produto_id as $id){
             $transacaoProduto = new TransacaoProduto();
             $transacaoProduto->produto_id = $id;
+            $transacaoProduto->entidade_id = $entidade_id;
             $transacaoProduto->transacao_id = $transacao->id;
             $transacaoProduto->save();
         }
